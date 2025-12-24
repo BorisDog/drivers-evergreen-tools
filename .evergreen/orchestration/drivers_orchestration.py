@@ -423,8 +423,12 @@ def run(opts):
             )
             shutil.copytree(opts.existing_binaries_dir, mdb_binaries)
 
+        run_command(f"ldd --help", exit_on_error=False)
         run_command(f"ldd --verbose {mdb_binaries_str}/mongod", exit_on_error=False)
         run_command(f"{mdb_binaries_str}/mongod --version", exit_on_error=False)
+        
+         LOGGER.info("Running mongod")
+        run_command(f"{mdb_binaries_str}/mongod")
 
     # Download legacy shell.
     if opts.install_legacy_shell:
